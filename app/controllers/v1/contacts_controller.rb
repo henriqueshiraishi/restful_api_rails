@@ -3,8 +3,9 @@ class V1::ContactsController < ApplicationController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    @contacts = Contact.all.page(params[:page].try(:[], :number)).per(params[:page].try(:[], :size))
 
+    # paginate json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
     render json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
   end
 
