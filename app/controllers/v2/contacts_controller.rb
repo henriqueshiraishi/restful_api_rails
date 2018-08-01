@@ -1,9 +1,9 @@
-class ContactsController < ApplicationController
+class V2::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    @contacts = Contact.last(5).reverse
 
     render json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
   end

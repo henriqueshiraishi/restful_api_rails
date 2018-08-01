@@ -1,4 +1,4 @@
-class AddressesController < ApplicationController
+class V2::AddressesController < ApplicationController
   before_action :set_contact
 
   def destroy

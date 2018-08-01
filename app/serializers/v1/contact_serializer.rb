@@ -1,15 +1,15 @@
-class ContactSerializer < ActiveModel::Serializer
+class V1::ContactSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :birthdate#, :calculed
-  link(:self) { contact_url(object.id) }
+  link(:self) { v1_contact_url(object.id) }
 
   has_many :phones do
-    link(:related) { contact_phones_url(object.id) }
+    link(:related) { v1_contact_phones_url(object.id) }
   end
   has_one :address do
-    link(:related) { contact_address_url(object.id) }
+    link(:related) { v1_contact_address_url(object.id) }
   end
   belongs_to :kind do
-    link(:related) { contact_kind_url(object.id) }
+    link(:related) { v1_contact_kind_url(object.id) }
   end
 
   # def calculed

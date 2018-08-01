@@ -1,31 +1,29 @@
-class PhonesController < ApplicationController
+class V1::AddressesController < ApplicationController
   before_action :set_contact
 
-  def show
-    render json: @contact.phones
+  def destroy
+    @contact.address.destroy
   end
 
   def create
-    @contact.phones << Phone.new(phone_params)
+    @contact.address = Address.new(address_params)
     if @contact.save
-      render json: @contact.phones, status: :created, location: contact_phones_url(@contact)
+      render json: @contact.address, status: :created, location: contact_address_url(@contact)
     else
       render json: @contact.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    @phone = Phone.find(phone_params[:id])
-    if @phone.update(phone_params)
-      render json: @contact.phones
+    if @contact.address.update(address_params)
+      render json: @contact.address
     else
       render json: @contact.errors, status: :unprocessable_entity
     end
   end
 
-  def destroy
-    @phone = Phone.find(phone_params[:id])
-    @phone.destroy
+  def show
+    render json: @contact.address
   end
 
   private
@@ -34,7 +32,7 @@ class PhonesController < ApplicationController
       @contact = Contact.find(params[:contact_id])
     end
 
-    def phone_params
+    def address_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
     end
 
