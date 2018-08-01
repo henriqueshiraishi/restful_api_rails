@@ -30,6 +30,11 @@ gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'
 # Manage Procfile-based applications
 gem 'foreman'
+# A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard. http://jwt.github.io/ruby-jwt/
+gem 'jwt'
+# Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth.
+gem 'devise_token_auth'
+gem 'devise-i18n'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

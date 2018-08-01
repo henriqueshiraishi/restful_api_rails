@@ -1,5 +1,19 @@
 class KindsController < ApplicationController
+
+  before_action :authenticate_user!
+
+  # include ActionController::HttpAuthentication::Basic::ControllerMethods
+  # http_basic_authenticate_with name: "henrique", password: "shiraishi"
+
+  # include ActionController::HttpAuthentication::Digest::ControllerMethods
+  # USERS = {"henrique" => Digest::MD5.hexdigest(["henrique","Application","shiraishi"].join(":"))}
+
+  # include ActionController::HttpAuthentication::Token::ControllerMethods
+  # TOKEN = Base64.strict_encode64('mytoken') # bXl0b2tlbg==
+
+  # before_action :authenticate
   before_action :set_kind, only: [:show, :update, :destroy]
+
 
   # GET /kinds
   def index
@@ -52,4 +66,21 @@ class KindsController < ApplicationController
     def kind_params
       params.require(:kind).permit(:description)
     end
+
+    # def authenticate
+    #   # authenticate_or_request_with_http_digest('Application') do |username|
+    #   #   USERS[username]
+    #   # end
+    #
+    #   authenticate_or_request_with_http_token do |token, options|
+    #     hmac_secret = 'my$ecretK3y'
+    #     JWT.decode token, hmac_secret, true, { algorithm: 'HS256' }
+    #
+    #     # ActiveSupport::SecurityUtils.secure_compare(
+    #     #   ::Digest::SHA256.hexdigest(token),
+    #     #   ::Digest::SHA256.hexdigest(TOKEN)
+    #     # )
+    #   end
+    # end
+
 end
