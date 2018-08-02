@@ -1,4 +1,5 @@
 class V1::ContactsController < ApplicationController
+  include ErrorSerializer
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # GET /contacts
@@ -21,7 +22,7 @@ class V1::ContactsController < ApplicationController
     if @contact.save
       render json: @contact, include: [:kind], status: :created, location: @contact
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: ErrorSerializer.serialize(@contact.errors), status: :unprocessable_entity
     end
   end
 
