@@ -6,8 +6,12 @@ class V1::ContactsController < ApplicationController
   def index
     @contacts = Contact.all.page(params[:page].try(:[], :number)).per(params[:page].try(:[], :size))
 
+    expires_in 15.seconds, public: true # Cache-Control
+
+    if stale?(etag: @contacts) # E-tag - If o etag de @contacts foi modificado, é renderizado um novo JSON
+      render json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
+    end
     # paginate json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
-    render json: @contacts #, methods: :birthdate_br #[:hello, :i18n]
   end
 
   # GET /contacts/1
